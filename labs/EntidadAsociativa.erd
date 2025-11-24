@@ -1,0 +1,34 @@
+erdiagram Model
+
+entity PUESTO_DE_TRABAJO{
+id_puesto key
+nombre_puesto     
+}
+
+entity COMPETENCIA{
+id_competencia key
+nombre_competencia 
+}
+
+entity ASOC_REQUISITO_DE_PUESTO{
+id_puesto key
+id_competencia key    
+}
+
+entity VALIDADOR{
+id_validador key
+nombre
+apellido    
+}
+
+relationship es_requerida_por{
+COMPETENCIA[1..1]->ASOC_REQUISITO_DE_PUESTO[0..N]   
+}
+
+relationship requiere{
+PUESTO_DE_TRABAJO[1..1]->ASOC_REQUISITO_DE_PUESTO[0..N]    
+}
+
+relationship validada_por{
+VALIDADOR[1..1]->ASOC_REQUISITO_DE_PUESTO[0..N]    
+}
