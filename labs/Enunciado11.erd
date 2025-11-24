@@ -1,0 +1,39 @@
+erdiagram Model
+
+entity ESTUDIANTE{
+num_expediente key
+nombre
+apellido1 
+apellido2
+sexo 
+fechaNac   
+}
+
+entity TUTOR{
+nif key
+nombre 
+apellido1
+apellido2
+profesion
+direccion
+telefono     
+}
+
+entity ESTUDIANTE_ENFERMO{
+num_expediente key    
+descripcion
+cuidados 
+}
+
+entity DOCENTE{
+dni key 
+nombre 
+apellido1
+apellido2
+fechaNac 
+direccion 
+telefono 
+salario 
+cuenta_bancaria    
+}
+
