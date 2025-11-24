@@ -17,16 +17,15 @@ id_competencia key
 
 entity VALIDADOR{
 id_validador key
-nombre
-apellido    
+rol_empresa 
 }
 
 relationship es_requerida_por{
-COMPETENCIA[1..1]->ASOC_REQUISITO_DE_PUESTO[0..N]   
+COMPETENCIA[1..1]->ASOC_REQUISITO_DE_PUESTO[1..N]   
 }
 
 relationship requiere{
-PUESTO_DE_TRABAJO[1..1]->ASOC_REQUISITO_DE_PUESTO[0..N]    
+PUESTO_DE_TRABAJO[1..1]->ASOC_REQUISITO_DE_PUESTO[1..N]    
 }
 
 relationship validada_por{
