@@ -1,0 +1,123 @@
+erdiagram Model
+
+entity Libro{
+id_libro key
+titulo 
+sinopsis 
+fecha_publicacion    
+}
+
+entity Idioma{
+id_idioma key     
+}
+
+entity Profesional_Literario{
+id_profesional key 
+nombre
+apellidos
+biografia    
+}
+
+//total, solapada
+entity Autor extends Profesional_Literario{
+id_profesional key   
+}
+
+
+//total, solapada
+entity Traductor extends Profesional_Literario{
+id_profesional key     
+}
+
+entity Genero{
+id_genero key     
+}
+
+weak entity Edicion_Fisica{
+isbn partial-key 
+precio 
+fecha_lanzamiento 
+numero_paginas 
+dimensiones     
+}
+
+entity Editorial{
+CIF key 
+nombre //UNIQUE
+email 
+telefono
+url////////
+}
+
+entity Libreria{
+cif key 
+nombre 
+telefono 
+direccion 
+email    
+}
+
+entity Usuario{
+nif key 
+nombre_completo
+email 
+telefono 
+contrasena     
+}
+
+entity Reserva{
+id_reserva key 
+fecha_reserva     
+}
+
+relationship esta_en_idioma{
+Libro[0..N]->Idioma[1..N]    
+}
+
+weak relationship tiene_edicion{
+Libro[1..1]->Edicion_Fisica[0..N]    
+} 
+
+relationship se_clasifica_en{
+Libro[1..N]->Genero[1..1]
+}
+
+relationship escribe{
+Libro[1..N]->Autor[1..N]    
+}
+
+relationship valora{
+Usuario[0..N]->Libro[0..N]   
+puntuacion 
+comentario 
+fecha 
+}
+
+relationship traduce{
+Libro[1..N]->Traductor[1..N]    
+}
+
+relationship es_especialista_en{
+Autor[1..N]->Genero[1..N]    
+}
+
+relationship experto_en{
+Traductor[1..N]->Genero[1..N]    
+}
+
+relationship publicada_por{
+Editorial[0..N]->Edicion_Fisica[0..N]
+}
+
+weak relationship asociadoA{
+Reserva[0..N]->Edicion_Fisica[1..N]    
+}
+
+relationship gestionada_en{
+Reserva[0..N]->Libreria[1..1]    
+}
+
+relationship realiza{
+Usuario[1..1]->Reserva[1..N]
+cantidad     
+}
