@@ -8,7 +8,8 @@ fecha_publicacion
 }
 
 entity Idioma{
-id_idioma key     
+id_idioma key
+nombre_idioma
 }
 
 entity Profesional_Literario{
@@ -31,10 +32,11 @@ id_profesional key
 
 entity Genero{
 id_genero key     
+nombre
 }
 
-weak entity Edicion_Fisica{
-isbn partial-key 
+entity Edicion_Fisica{
+isbn key
 precio 
 fecha_lanzamiento 
 numero_paginas 
@@ -46,7 +48,11 @@ CIF key
 nombre //UNIQUE
 email 
 telefono
-url////////
+}
+
+weak entity Linea_Reserva{
+num_linea partial-key
+cantidad
 }
 
 entity Libreria{
@@ -71,19 +77,23 @@ fecha_reserva
 }
 
 relationship esta_en_idioma{
-Libro[0..N]->Idioma[1..N]    
+Libro[0..N]->Idioma[1..1]    
 }
 
-weak relationship tiene_edicion{
+relationship es_traduccion_de{
+Libro[0..N|"Traduccion"]->Libro[0..1|"Traducido"]
+}
+
+relationship tiene_edicion{
 Libro[1..1]->Edicion_Fisica[0..N]    
 } 
 
 relationship se_clasifica_en{
-Libro[1..N]->Genero[1..1]
+Libro[0..N]->Genero[1..N]
 }
 
 relationship escribe{
-Libro[1..N]->Autor[1..N]    
+Libro[1..N]->Autor[0..N]    
 }
 
 relationship valora{
@@ -94,23 +104,24 @@ fecha
 }
 
 relationship traduce{
-Libro[1..N]->Traductor[1..N]    
+Libro[1..N]->Traductor[0..N]    
 }
 
 relationship es_especialista_en{
-Autor[1..N]->Genero[1..N]    
+Autor[0..N]->Genero[0..N]    
 }
 
 relationship experto_en{
-Traductor[1..N]->Genero[1..N]    
+Traductor[0..N]->Idioma[1..N]    
 }
 
 relationship publicada_por{
-Editorial[0..N]->Edicion_Fisica[0..N]
+Editorial[1..1]->Edicion_Fisica[0..N]
 }
 
-weak relationship asociadoA{
-Reserva[0..N]->Edicion_Fisica[1..N]    
+relationship stock_disponible{
+Libreria[0..N]->Edicion_Fisica[0..N]
+cantidad
 }
 
 relationship gestionada_en{
@@ -118,6 +129,13 @@ Reserva[0..N]->Libreria[1..1]
 }
 
 relationship realiza{
-Usuario[1..1]->Reserva[1..N]
-cantidad     
+Usuario[1..1]->Reserva[0..N]  
+}
+
+weak relationship contiene_lineas{
+Reserva[1..1]->Linea_Reserva[1..N] 
+}
+
+relationship reserva_de_edicion{
+Linea_Reserva[0..N]->Edicion_Fisica[1..1]
 }
