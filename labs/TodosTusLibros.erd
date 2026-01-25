@@ -43,12 +43,7 @@ numero_paginas
 dimensiones     
 }
 
-entity Editorial{
-CIF key 
-nombre //UNIQUE
-email 
-telefono
-}
+
 
 weak entity Linea_Reserva{
 num_linea partial-key
@@ -116,7 +111,7 @@ Traductor[0..N]->Idioma[1..N]
 }
 
 relationship publicada_por{
-Editorial[1..1]->Edicion_Fisica[0..N]
+->Edicion_Fisica[0..N]
 }
 
 relationship stock_disponible{
